@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/auth-provider";
 import { useRouter } from "next/navigation";
+import { Search } from "lucide-react";
 
 export function Navbar() {
   const { user, supabase } = useAuth();
@@ -21,18 +22,14 @@ export function Navbar() {
           <Link href="/" className="font-bold text-lg">
             🎬 Movie Watchlist
           </Link>
-          
+
           <div className="flex items-center gap-4">
             {user ? (
               <>
                 <span className="text-sm text-muted-foreground">
                   {user.user_metadata?.name || user.email}
                 </span>
-                <Button
-                  onClick={handleLogout}
-                  variant="outline"
-                  size="sm"
-                >
+                <Button onClick={handleLogout} variant="outline" size="sm">
                   Logout
                 </Button>
               </>
@@ -44,12 +41,16 @@ export function Navbar() {
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button size="sm">
-                    Sign Up
-                  </Button>
+                  <Button size="sm">Sign Up</Button>
                 </Link>
               </>
             )}
+
+            <Link href="/search">
+              <Button variant="icon" size="sm">
+                <Search />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

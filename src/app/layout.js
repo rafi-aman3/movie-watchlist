@@ -3,6 +3,7 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { AuthProvider } from "@/components/auth-provider";
+import NextTopLoader from "nextjs-toploader";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -18,7 +19,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}>
+      <body
+        className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}
+      >
+        <NextTopLoader />
         <AuthProvider>
           <Navbar />
           <main className="grow">{children}</main>
