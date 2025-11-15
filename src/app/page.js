@@ -1,52 +1,107 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/components/auth-provider";
-import Link from "next/link";
-import Image from "next/image";
+
+import { HeroCarousel } from "@/components/hero-carousel";
+import { MovieSection } from "@/components/movie-section";
+import { Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  useGetPopularMoviesQuery,
+  useGetTrendingMoviesQuery,
+} from "@/lib/api/moviesApi";
+import MovieLoader from "@/components/movie-loader";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { user, loading } = useAuth();
+  const {
+    data: popularData,
+    isLoading: popularLoading,
+    error: popularError,
+  } = useGetPopularMoviesQuery(1);
+
+  const {
+    data: trendingData,
+    isLoading: trendingLoading,
+    error: trendingError,
+  } = useGetTrendingMoviesQuery(1);
+
+  const apiLoading = popularLoading || trendingLoading;
+  const error = popularError || trendingError;
+
+  const [minLoadingTime, setMinLoadingTime] = useState(true);
+
+  const heroMovies = (popularData?.results || []).slice(0, 10);
+  const popularMovies = popularData?.results || [];
+  const popularTotalPages = Math.min(popularData?.total_pages || 1, 10);
+  const trendingMovies = trendingData?.results || [];
+  const trendingTotalPages = Math.min(trendingData?.total_pages || 1, 10);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setMinLoadingTime(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const loading = apiLoading || minLoadingTime;
 
   if (loading) {
+    return <MovieLoader />;
+  }
+
+  if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-muted-foreground">Loading...</p>
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md">
+          Failed to load movies. Please try again later.
+        </div>
       </div>
     );
   }
 
+  const pageVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">🎬 Movie Watchlist</h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          Track and manage your favorite movies
-        </p>
-        
-        {user ? (
-          <div>
-            <p className="text-lg mb-6">
-              Welcome, <span className="font-semibold">{user.user_metadata?.name || user.email}</span>!
-            </p>
-            <Button size="lg">
-              Start Exploring Movies
-            </Button>
-          </div>
-        ) : (
-          <div className="flex gap-4 justify-center">
-            <Link href="/login">
-              <Button variant="outline" size="lg">
-                Login
-              </Button>
-            </Link>
-            <Link href="/signup">
-              <Button size="lg">
-                Sign Up
-              </Button>
-            </Link>
-          </div>
-        )}
-      </div>
-    </div>
+    <motion.div
+      className="bg-background"
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+    >
+      {/* Hero Carousel Section */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <HeroCarousel movies={heroMovies} />
+      </motion.div>
+
+      {/* Trending Movies Section */}
+      <MovieSection
+        title="Trending Now"
+        apiEndpoint="/api/trending"
+        initialMovies={trendingMovies}
+        initialPage={1}
+        totalPages={trendingTotalPages}
+      />
+
+      {/* Popular Movies Section */}
+      <MovieSection
+        title="Popular Movies"
+        apiEndpoint="/api/popular"
+        initialMovies={popularMovies}
+        initialPage={1}
+        totalPages={popularTotalPages}
+      />
+    </motion.div>
   );
 }

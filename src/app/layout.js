@@ -2,7 +2,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { AuthProvider } from "@/components/auth-provider";
+import { Providers } from "@/components/providers";
 import NextTopLoader from "nextjs-toploader";
 
 const montserrat = Montserrat({
@@ -18,16 +18,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}
       >
         <NextTopLoader />
-        <AuthProvider>
+        <Providers>
           <Navbar />
           <main className="grow">{children}</main>
           <Footer />
-        </AuthProvider>
+        </Providers>
       </body>
     </html>
   );
