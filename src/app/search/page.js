@@ -5,31 +5,15 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, Loader2 } from "lucide-react";
-import { useLazySearchMoviesQuery, useGetPopularMoviesQuery, useGetTrendingMoviesQuery } from "@/lib/api/moviesApi";
-import { MovieSection } from "@/components/movie-section";
+import { useLazySearchMoviesQuery } from "@/lib/api/moviesApi";
 import { MovieCard } from "@/components/movie-card";
 
 function SearchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [query, setQuery] = useState("");
-  const [triggerSearch, { data, isLoading, error }] = useLazySearchMoviesQuery();
-
-  // Fetch popular and trending movies
-  const {
-    data: popularData,
-    isLoading: popularLoading,
-  } = useGetPopularMoviesQuery(1);
-
-  const {
-    data: trendingData,
-    isLoading: trendingLoading,
-  } = useGetTrendingMoviesQuery(1);
-
-  const popularMovies = popularData?.results || [];
-  const popularTotalPages = Math.min(popularData?.total_pages || 1, 10);
-  const trendingMovies = trendingData?.results || [];
-  const trendingTotalPages = Math.min(trendingData?.total_pages || 1, 10);
+  const [triggerSearch, { data, isLoading, error }] =
+    useLazySearchMoviesQuery();
 
   useEffect(() => {
     const urlQuery = searchParams.get("q");
@@ -41,7 +25,7 @@ function SearchContent() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    
+
     if (!query.trim()) {
       return;
     }
@@ -53,11 +37,12 @@ function SearchContent() {
   const results = data?.results || [];
   const hasSearched = !!searchParams.get("q") || data;
 
-
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-7xl">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">Search Movies</h1>
-      
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6">
+        Search Movies
+      </h1>
+
       <form onSubmit={handleSearch} className="mb-6 sm:mb-8">
         <div className="flex flex-col sm:flex-row gap-2 sm:gap-2">
           <div className="relative flex-1">
@@ -70,8 +55,8 @@ function SearchContent() {
               className="pl-9 sm:pl-10 text-sm sm:text-base"
             />
           </div>
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={isLoading}
             className="w-full sm:w-auto hover:scale-105 transition-transform"
           >
@@ -123,41 +108,21 @@ function SearchContent() {
           </p>
         </div>
       )}
-
-      {/* Trending Movies Section */}
-      {!popularLoading && !trendingLoading && (
-        <>
-          <MovieSection
-            title="Trending Now"
-            apiEndpoint="/api/trending"
-            initialMovies={trendingMovies}
-            initialPage={1}
-            totalPages={trendingTotalPages}
-          />
-
-          {/* Popular Movies Section */}
-          <MovieSection
-            title="Popular Movies"
-            apiEndpoint="/api/popular"
-            initialMovies={popularMovies}
-            initialPage={1}
-            totalPages={popularTotalPages}
-          />
-        </>
-      )}
     </div>
   );
 }
 
 export default function SearchPage() {
   return (
-    <Suspense fallback={
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="size-8 animate-spin text-muted-foreground" />
+    <Suspense
+      fallback={
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="size-8 animate-spin text-muted-foreground" />
+          </div>
         </div>
-      </div>
-    }>
+      }
+    >
       <SearchContent />
     </Suspense>
   );

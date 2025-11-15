@@ -12,7 +12,9 @@ export function Footer() {
             </p>
           </div>
           <div className="text-sm text-muted-foreground">
-            <p>© 2024 Movie Watchlist. All rights reserved.</p>
+            <p>
+              Made with <span style={{ color: "#e25555" }}>&hearts;</span>
+            </p>
           </div>
         </div>
       </div>

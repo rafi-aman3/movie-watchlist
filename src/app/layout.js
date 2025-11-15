@@ -1,6 +1,6 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/footer";
 import { Providers } from "@/components/providers";
 import NextTopLoader from "nextjs-toploader";
