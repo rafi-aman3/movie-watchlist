@@ -11,7 +11,6 @@ export function AuthProvider({ children }) {
   const supabase = createClient();
 
   useEffect(() => {
-    // Check if user is logged in
     supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);

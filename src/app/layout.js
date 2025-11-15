@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}
+        className={`${montserrat.variable} antialiased font-montserrat flex flex-col min-h-screen`}
       >
         <NextTopLoader />
         <Providers>

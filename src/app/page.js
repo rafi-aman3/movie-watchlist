@@ -2,81 +2,56 @@
 
 import { HeroCarousel } from "@/components/hero-carousel";
 import { MovieSection } from "@/components/movie-section";
-import { Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
   useGetPopularMoviesQuery,
   useGetTrendingMoviesQuery,
 } from "@/lib/api/moviesApi";
 import MovieLoader from "@/components/movie-loader";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
+import { HomepageVariants } from "@/lib/animation/homepage";
+import { ErrorComponent } from "@/components/movie-error";
+import { useMoviePagination } from "@/hooks/homepage/useMoviePagination";
+import { useMinimumLoadingTime } from "@/hooks/homepage/useMinimumLoadingTime";
+
+const HERO_MOVIES_COUNT = 10;
 
 export default function Home() {
-  const {
-    data: popularData,
-    isLoading: popularLoading,
-    error: popularError,
-  } = useGetPopularMoviesQuery(1);
+  const isMinTimePassed = useMinimumLoadingTime();
 
-  const {
-    data: trendingData,
-    isLoading: trendingLoading,
-    error: trendingError,
-  } = useGetTrendingMoviesQuery(1);
+  const popular = useMoviePagination(useGetPopularMoviesQuery);
+  const trending = useMoviePagination(useGetTrendingMoviesQuery);
 
-  const apiLoading = popularLoading || trendingLoading;
-  const error = popularError || trendingError;
+  const isInitialLoad = !isMinTimePassed;
+  const hasError = (popular.error || trending.error) && isInitialLoad;
+  const isLoading = (popular.isLoading || trending.isLoading) && isInitialLoad;
 
-  const [minLoadingTime, setMinLoadingTime] = useState(true);
+  const heroMovies = useMemo(
+    () => popular.movies.slice(0, HERO_MOVIES_COUNT),
+    [popular.movies]
+  );
 
-  const heroMovies = (popularData?.results || []).slice(0, 10);
-  const popularMovies = popularData?.results || [];
-  const popularTotalPages = Math.min(popularData?.total_pages || 1, 10);
-  const trendingMovies = trendingData?.results || [];
-  const trendingTotalPages = Math.min(trendingData?.total_pages || 1, 10);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setMinLoadingTime(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const loading = apiLoading || minLoadingTime;
-
-  if (loading) {
+  if (isLoading) {
     return <MovieLoader />;
   }
 
-  if (error) {
+  if (hasError) {
     return (
-      <div className="container mx-auto px-4 py-8 max-w-7xl">
-        <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md">
-          Failed to load movies. Please try again later.
-        </div>
-      </div>
+      <ErrorComponent
+        title="Failed to Load Movies"
+        message="We couldn't fetch the movie data. Please check your connection and try again."
+        onRetry={() => window.location.reload()}
+      />
     );
   }
-
-  const pageVariants = {
-    initial: { opacity: 0 },
-    animate: {
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  };
 
   return (
     <motion.div
       className="bg-background"
-      variants={pageVariants}
+      variants={HomepageVariants}
       initial="initial"
       animate="animate"
     >
-      {/* Hero Carousel Section */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -84,23 +59,19 @@ export default function Home() {
       >
         <HeroCarousel movies={heroMovies} />
       </motion.div>
-
-      {/* Trending Movies Section */}
       <MovieSection
         title="Trending Now"
-        apiEndpoint="/api/trending"
-        initialMovies={trendingMovies}
-        initialPage={1}
-        totalPages={trendingTotalPages}
+        movies={trending.movies}
+        isLoading={trending.isLoading && !isInitialLoad}
+        onLoadMore={trending.loadMore}
+        hasMore={trending.hasMore}
       />
-
-      {/* Popular Movies Section */}
       <MovieSection
         title="Popular Movies"
-        apiEndpoint="/api/popular"
-        initialMovies={popularMovies}
-        initialPage={1}
-        totalPages={popularTotalPages}
+        movies={popular.movies}
+        isLoading={popular.isLoading && !isInitialLoad}
+        onLoadMore={popular.loadMore}
+        hasMore={popular.hasMore}
       />
     </motion.div>
   );

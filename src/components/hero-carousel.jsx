@@ -18,7 +18,7 @@ export function HeroCarousel({ movies }) {
     const interval = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prev) => (prev + 1) % movies.length);
-    }, 5000); // Auto-play every 5 seconds
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [movies.length]);

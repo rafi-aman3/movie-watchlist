@@ -32,19 +32,22 @@ export function Navbar() {
   };
 
   return (
-    <nav className="border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50">
+    <nav className="border-b border-border/50 bg-transparent backdrop-blur-[66px] sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-4">
           {/* Logo */}
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="font-bold text-lg shrink-0 hover:opacity-80 transition-opacity"
           >
             🎬 Movie Watchlist
           </Link>
 
           {/* Desktop Search Bar */}
-          <form onSubmit={handleSearch} className="hidden md:flex flex-1 max-w-md mx-4">
+          <form
+            onSubmit={handleSearch}
+            className="hidden md:flex flex-1 max-w-md mx-4"
+          >
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
               <Input
@@ -64,9 +67,9 @@ export function Navbar() {
                 <span className="text-sm text-muted-foreground hidden lg:inline truncate max-w-[150px]">
                   {user.user_metadata?.name || user.email}
                 </span>
-                <Button 
-                  onClick={handleLogout} 
-                  variant="outline" 
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
                   size="sm"
                   className="hover:scale-105 transition-transform"
                 >
@@ -76,8 +79,8 @@ export function Navbar() {
             ) : (
               <>
                 <Link href="/login">
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     size="sm"
                     className="hover:scale-105 transition-transform"
                   >
@@ -85,7 +88,7 @@ export function Navbar() {
                   </Button>
                 </Link>
                 <Link href="/signup">
-                  <Button 
+                  <Button
                     size="sm"
                     className="hover:scale-105 transition-transform"
                   >
@@ -99,9 +102,9 @@ export function Navbar() {
 
             {user && (
               <Link href="/watchlist">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className="size-9 hover:scale-110 transition-transform"
                 >
                   <ListIcon className="size-4" />
@@ -115,9 +118,9 @@ export function Navbar() {
             <ThemeToggle />
             {user && (
               <Link href="/watchlist">
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className="size-9 hover:scale-110 transition-transform"
                 >
                   <ListIcon className="size-4" />
@@ -139,8 +142,6 @@ export function Navbar() {
             </Button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -171,9 +172,9 @@ export function Navbar() {
                     <div className="text-sm text-muted-foreground px-2">
                       {user.user_metadata?.name || user.email}
                     </div>
-                    <Button 
-                      onClick={handleLogout} 
-                      variant="outline" 
+                    <Button
+                      onClick={handleLogout}
+                      variant="outline"
                       className="w-full"
                     >
                       Logout
@@ -181,15 +182,19 @@ export function Navbar() {
                   </div>
                 ) : (
                   <div className="flex flex-col gap-2">
-                    <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
+                    <Link
+                      href="/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
                       <Button variant="ghost" className="w-full">
                         Login
                       </Button>
                     </Link>
-                    <Link href="/signup" onClick={() => setIsMobileMenuOpen(false)}>
-                      <Button className="w-full">
-                        Sign Up
-                      </Button>
+                    <Link
+                      href="/signup"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <Button className="w-full">Sign Up</Button>
                     </Link>
                   </div>
                 )}
