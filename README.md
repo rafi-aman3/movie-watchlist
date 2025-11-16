@@ -2,6 +2,10 @@
 
 A modern movie watchlist application built with Next.js that allows users to search for movies, manage their watchlist, and track movies they want to watch.
 
+## 🎥 Demo
+
+[View Demo ↗️](https://drive.google.com/file/d/1Dt8FksilbetwdFuksgCQ-yQ1izDGthkl/view?usp=sharing)
+
 ## ✨ Features
 
 - 🔍 Search for movies using an external movie API
@@ -93,9 +97,6 @@ movie-watchlist/
 3. **Manage Watchlist**: View your saved movies in the watchlist section
 4. **Remove Movies**: Delete movies from your watchlist when no longer needed
 
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 👤 Author
 
@@ -134,8 +135,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ![Signup](screenshots/signuppage.png)
 
-## 🎥 Demo
 
-[View Demo ↗️](https://drive.google.com/file/d/1Dt8FksilbetwdFuksgCQ-yQ1izDGthkl/view?usp=sharing)
 
 ⭐️ If you found this project helpful, please consider giving it a star on GitHub!
