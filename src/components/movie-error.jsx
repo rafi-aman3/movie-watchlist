@@ -19,7 +19,6 @@ export function ErrorComponent({
         className="max-w-md w-full"
       >
         <div className="relative">
-          {/* Animated background gradient */}
           <motion.div
             className="absolute inset-0 bg-linear-to-br from-red-500/10 via-orange-500/10 to-yellow-500/10 dark:from-red-500/20 dark:via-orange-500/20 dark:to-yellow-500/20 rounded-2xl blur-xl"
             animate={{
@@ -33,9 +32,7 @@ export function ErrorComponent({
             }}
           />
 
-          {/* Main content card */}
           <div className="relative bg-background/80 backdrop-blur-sm border border-destructive/20 rounded-2xl p-8 shadow-2xl">
-            {/* Error icon with animation */}
             <motion.div
               className="flex justify-center mb-6"
               initial={{ scale: 0 }}
@@ -66,7 +63,6 @@ export function ErrorComponent({
               </div>
             </motion.div>
 
-            {/* Title */}
             <motion.h2
               className="text-2xl font-bold text-center mb-3"
               initial={{ opacity: 0, y: 10 }}
@@ -76,7 +72,6 @@ export function ErrorComponent({
               {title}
             </motion.h2>
 
-            {/* Message */}
             <motion.p
               className="text-muted-foreground text-center mb-6"
               initial={{ opacity: 0, y: 10 }}
@@ -86,7 +81,6 @@ export function ErrorComponent({
               {message}
             </motion.p>
 
-            {/* Action buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-3"
               initial={{ opacity: 0, y: 10 }}
@@ -113,13 +107,11 @@ export function ErrorComponent({
               )}
             </motion.div>
 
-            {/* Decorative elements */}
             <div className="absolute -top-2 -right-2 w-20 h-20 bg-destructive/5 rounded-full blur-2xl" />
             <div className="absolute -bottom-2 -left-2 w-16 h-16 bg-orange-500/5 rounded-full blur-2xl" />
           </div>
         </div>
 
-        {/* Additional help text */}
         <motion.p
           className="text-center text-sm text-muted-foreground mt-6"
           initial={{ opacity: 0 }}

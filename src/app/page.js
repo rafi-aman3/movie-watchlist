@@ -7,12 +7,12 @@ import {
   useGetPopularMoviesQuery,
   useGetTrendingMoviesQuery,
 } from "@/lib/api/moviesApi";
-import MovieLoader from "@/components/movie-loader";
 import { useMemo } from "react";
 import { HomepageVariants } from "@/lib/animation/homepage";
 import { ErrorComponent } from "@/components/movie-error";
 import { useMoviePagination } from "@/hooks/homepage/useMoviePagination";
 import { useMinimumLoadingTime } from "@/hooks/homepage/useMinimumLoadingTime";
+import LoadingSpinner from "@/components/loading-spinner";
 
 const HERO_MOVIES_COUNT = 10;
 
@@ -32,7 +32,7 @@ export default function Home() {
   );
 
   if (isLoading) {
-    return <MovieLoader />;
+    return <LoadingSpinner />;
   }
 
   if (hasError) {

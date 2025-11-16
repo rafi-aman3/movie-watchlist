@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${montserrat.variable} antialiased font-montserrat flex flex-col min-h-screen`}
       >
-        <NextTopLoader />
+        <NextTopLoader color="#ba1f1e" />
         <Providers>
           <Navbar />
           <main className="grow">{children}</main>

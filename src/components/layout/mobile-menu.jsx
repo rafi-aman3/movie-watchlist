@@ -5,6 +5,7 @@ import { Input } from "../ui/input";
 import { useAuth } from "../auth-provider";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { LogoutButton } from "../auth/logout-button";
 
 const MobileMenu = ({
   isMobileMenuOpen,
@@ -27,31 +28,17 @@ const MobileMenu = ({
           className="md:hidden overflow-hidden"
         >
           <div className="py-4 space-y-4 border-t border-border/50">
-            <form onSubmit={handleSearch}>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground size-4" />
-                <Input
-                  type="text"
-                  placeholder="Search movies..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-            </form>
-
             {user ? (
-              <div className="space-y-2">
+              <div className="space-y-2 flex items-center justify-between">
                 <div className="text-sm text-muted-foreground px-2">
                   {user.user_metadata?.name || user.email}
                 </div>
-                <Button
-                  onClick={handleLogout}
+
+                <LogoutButton
+                  onLogout={handleLogout}
                   variant="outline"
-                  className="w-full"
-                >
-                  Logout
-                </Button>
+                  size="sm"
+                />
               </div>
             ) : (
               <div className="flex flex-col gap-2">

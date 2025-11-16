@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { BookmarkPlus } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
+import { LogoutButton } from "../auth/logout-button";
 
 export const DesktopNavActions = ({ handleLogout }) => {
   const { user } = useAuth();
@@ -33,14 +34,7 @@ export const DesktopNavActions = ({ handleLogout }) => {
             </AvatarFallback>
           </Avatar>
 
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            size="sm"
-            className="hover:scale-105 transition-transform"
-          >
-            Logout
-          </Button>
+          <LogoutButton onLogout={handleLogout} variant="outline" size="sm" />
         </>
       ) : (
         <>

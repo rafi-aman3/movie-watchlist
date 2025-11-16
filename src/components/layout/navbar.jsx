@@ -39,7 +39,8 @@ export function Navbar() {
             className="font-bold text-lg text-primary shrink-0 hover:opacity-80 transition-opacity"
             aria-label="Home"
           >
-            🎬 Movie Watchlist
+            <p className=" hidden md:block">🎬 Movie Watchlist</p>
+            <p className="block md:hidden">🎬</p>
           </Link>
           <SearchForm
             searchQuery={search.searchQuery}
