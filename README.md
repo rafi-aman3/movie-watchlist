@@ -14,18 +14,21 @@ A modern movie watchlist application built with Next.js that allows users to sea
 ### Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - Node.js (version 20 or higher)
 - npm, yarn, pnpm, or bun
 
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/rafi-aman3/movie-watchlist.git
 cd movie-watchlist
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 # or
@@ -37,7 +40,8 @@ bun install
 ```
 
 3. Set up environment variables (if needed):
-Create a `.env.local` file in the root directory and add your API keys:
+   Create a `.env.local` file in the root directory and add your API keys:
+
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_annon_key
@@ -87,8 +91,7 @@ movie-watchlist/
 1. **Search for Movies**: Use the search bar to find movies by title
 2. **Add to Watchlist**: Click the add button to save movies to your watchlist
 3. **Manage Watchlist**: View your saved movies in the watchlist section
-5. **Remove Movies**: Delete movies from your watchlist when no longer needed
-
+4. **Remove Movies**: Delete movies from your watchlist when no longer needed
 
 ## 📝 License
 
@@ -97,12 +100,39 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 👤 Author
 
 **Rafi Aman**
+
 - GitHub: [@rafi-aman3](https://github.com/rafi-aman3)
 
 ## 🙏 Acknowledgments
 
 - Movie data provided by [TMDB API](https://www.themoviedb.org/)
 - Inspiration from various movie tracking applications
+
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](screenshots/homepage.png)
+
+### Movie Search
+
+![Movie Search](screenshots/searchpage.png)
+
+### Movie Details Page
+
+![Movie Details Page](screenshots/moviedetails.png)
+
+### Watchlist
+
+![Watchlist](screenshots/watchlistpage.png)
+
+### Login
+
+![Login](screenshots/loginpage.png)
+
+### Signup
+
+![Signup](screenshots/signuppage.png)
 
 ---
 
