@@ -134,6 +134,10 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ![Signup](screenshots/signuppage.png)
 
+## 🎥 Demo
+
+Watch the full demo video: [View Demo on Google Drive](https://drive.google.com/file/d/1Dt8FksilbetwdFuksgCQ-yQ1izDGthkl/view?usp=sharing)
+
 ---
 
 ⭐️ If you found this project helpful, please consider giving it a star on GitHub!
