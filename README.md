@@ -89,37 +89,6 @@ movie-watchlist/
 3. **Manage Watchlist**: View your saved movies in the watchlist section
 5. **Remove Movies**: Delete movies from your watchlist when no longer needed
 
-## 🚢 Deployment
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-### Deploy to Vercel
-
-1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
-2. Import your repository to Vercel
-3. Vercel will automatically detect Next.js and configure the build settings
-4. Add your environment variables in the Vercel dashboard
-5. Deploy!
-
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more deployment options.
-
-## 📚 Learn More
-
-To learn more about Next.js and the technologies used in this project:
-
-- [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
-- [Learn Next.js](https://nextjs.org/learn) - An interactive Next.js tutorial
-- [Next.js GitHub Repository](https://github.com/vercel/next.js) - Your feedback and contributions are welcome!
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 ## 📝 License
 
@@ -132,7 +101,6 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Thanks to the Next.js team for the amazing framework
 - Movie data provided by [TMDB API](https://www.themoviedb.org/)
 - Inspiration from various movie tracking applications
 
