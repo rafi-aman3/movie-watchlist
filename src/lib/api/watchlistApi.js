@@ -38,5 +38,6 @@ export const {
   useAddToWatchlistMutation,
   useRemoveFromWatchlistMutation,
   useCheckWatchlistStatusQuery,
+  useLazyCheckWatchlistStatusQuery
 } = watchlistApi;
 

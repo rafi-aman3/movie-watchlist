@@ -37,3 +37,8 @@ export const getLogoUrl = (logoPath) => {
   const path = logoPath.startsWith('/') ? logoPath : `/${logoPath}`;
   return `https://image.tmdb.org/t/p/w200${path}`;
 };
+
+export const getYear = (releaseDate) => {
+  if (!releaseDate) return "N/A";
+  return new Date(releaseDate).getFullYear();
+};

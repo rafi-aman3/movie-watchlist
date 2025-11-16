@@ -21,7 +21,7 @@ export function ErrorComponent({
         <div className="relative">
           {/* Animated background gradient */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-orange-500/10 to-yellow-500/10 dark:from-red-500/20 dark:via-orange-500/20 dark:to-yellow-500/20 rounded-2xl blur-xl"
+            className="absolute inset-0 bg-linear-to-br from-red-500/10 via-orange-500/10 to-yellow-500/10 dark:from-red-500/20 dark:via-orange-500/20 dark:to-yellow-500/20 rounded-2xl blur-xl"
             animate={{
               scale: [1, 1.1, 1],
               opacity: [0.5, 0.8, 0.5],
