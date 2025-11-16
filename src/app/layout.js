@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/footer";
 import { Providers } from "@/components/providers";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "@/components/ui/sonner";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -26,6 +27,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Navbar />
           <main className="grow">{children}</main>
+          <Toaster richColors position="top-right" />
           <Footer />
         </Providers>
       </body>

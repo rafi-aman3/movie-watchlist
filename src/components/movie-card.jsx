@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import MovieCardPoster from "./movie/movie-card-poster";
 import MovieCardOverlay from "./movie/movie-card-overlay";
 import MovieCardContent from "./movie/movie-card-content";
+import { toast } from "sonner";
 
 export function MovieCard({ movie, size = "default" }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -53,6 +54,7 @@ export function MovieCard({ movie, size = "default" }) {
     try {
       if (inWatchlist) {
         await removeFromWatchlist(movie.id).unwrap();
+        toast.success("Movie has been removed from Watchlist");
       } else {
         await addToWatchlist({
           movie_id: movie.id,
@@ -62,6 +64,8 @@ export function MovieCard({ movie, size = "default" }) {
             : null,
           poster_path: movie.poster_path,
         }).unwrap();
+
+        toast.success("Movie has been added to Watchlist");
       }
     } catch (error) {
       console.error("Watchlist operation failed:", error);

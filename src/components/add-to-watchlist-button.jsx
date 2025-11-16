@@ -10,8 +10,13 @@ import {
 } from "@/lib/api/watchlistApi";
 import { Plus, Check, Loader2, X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-export function AddToWatchlistButton({ movie, variant = "default", size = "default" }) {
+export function AddToWatchlistButton({
+  movie,
+  variant = "default",
+  size = "default",
+}) {
   const { user } = useAuth();
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
@@ -40,6 +45,7 @@ export function AddToWatchlistButton({ movie, variant = "default", size = "defau
     try {
       if (inWatchlist) {
         await removeFromWatchlist(movie.id).unwrap();
+        toast.success("Movie has been removed from Watchlist");
       } else {
         await addToWatchlist({
           movie_id: movie.id,
@@ -49,6 +55,8 @@ export function AddToWatchlistButton({ movie, variant = "default", size = "defau
             : null,
           poster_path: movie.poster_path,
         }).unwrap();
+
+        toast.success("Movie has been added to Watchlist");
       }
     } catch (error) {
       console.error("Watchlist operation failed:", error);
@@ -107,4 +115,3 @@ export function AddToWatchlistButton({ movie, variant = "default", size = "defau
     </Button>
   );
 }
-
