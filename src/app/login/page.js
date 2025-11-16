@@ -1,26 +1,26 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/components/auth-provider";
-import Link from "next/link";
+import LoadingSpinner from "@/components/loading-spinner";
+import BackgroundOverlay from "@/components/auth/background-overlay";
+import GlowOrbs from "@/components/auth/glow";
+import { motion } from "framer-motion";
+import { SignUpPagefadeInUp } from "@/lib/animation/signup";
+import FormHeader from "@/components/auth/login/form-header";
+import ErrorAlert from "@/components/auth/signup/signup-error";
+import FormFooter from "@/components/auth/login/form-footer";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { supabase, user, loading: authLoading } = useAuth();
+  const { supabase, loading: authLoading } = useAuth();
   const router = useRouter();
-
-  // Redirect if user is already logged in
-  useEffect(() => {
-    if (!authLoading && user) {
-      router.push("/");
-    }
-  }, [user, authLoading, router]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -46,29 +46,21 @@ export default function LoginPage() {
     }
   };
 
-  // Show loading state while checking auth
-  if (authLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-background">
-        <div className="text-muted-foreground">Loading...</div>
-      </div>
-    );
-  }
+  if (authLoading) return <LoadingSpinner />
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-background">
-      <div className="w-full max-w-md">
-        <div className="bg-card rounded-lg shadow-lg p-8 border border-border">
-          <h1 className="text-2xl font-bold text-center mb-2">Welcome Back</h1>
-          <p className="text-center text-muted-foreground mb-6">
-            Sign in to your account
-          </p>
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
 
-          {error && (
-            <div className="bg-destructive/10 border border-destructive/30 text-destructive px-4 py-3 rounded-md mb-4 text-sm">
-              {error}
-            </div>
-          )}
+      <BackgroundOverlay />
+      <GlowOrbs />
+      <motion.div
+        {...SignUpPagefadeInUp}
+        transition={{ duration: 0.6 }}
+        className="relative z-10 w-full max-w-md"
+      >
+        <div className="bg-background/95 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-border/50">
+          <FormHeader />
+          {error && <ErrorAlert message={error} />}
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
@@ -80,7 +72,10 @@ export default function LoginPage() {
                 type="email"
                 placeholder="your@email.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setError('');
+                  setEmail(e.target.value)
+                }}
                 required
                 disabled={loading}
               />
@@ -95,7 +90,10 @@ export default function LoginPage() {
                 type="password"
                 placeholder="••••••••"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setError('');
+                  setPassword(e.target.value)
+                }}
                 required
                 disabled={loading}
               />
@@ -110,14 +108,9 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            Don't have an account?{" "}
-            <Link href="/signup" className="text-primary hover:underline">
-              Sign up here
-            </Link>
-          </p>
+          <FormFooter />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
