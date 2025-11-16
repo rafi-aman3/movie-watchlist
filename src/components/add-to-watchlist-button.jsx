@@ -17,7 +17,7 @@ export function AddToWatchlistButton({ movie, variant = "default", size = "defau
   const [isHovered, setIsHovered] = useState(false);
 
   const { data: statusData, isLoading: checkingStatus } =
-    useCheckWatchlistStatusQuery(movie.id, {
+    useCheckWatchlistStatusQuery(movie?.id, {
       skip: !user || !movie.id,
     });
 
