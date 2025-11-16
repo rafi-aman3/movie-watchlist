@@ -15,7 +15,7 @@ export const DesktopNavActions = ({ handleLogout }) => {
       {user && (
         <Link href="/watchlist">
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             className="hover:scale-110 transition-transform"
           >
@@ -26,6 +26,7 @@ export const DesktopNavActions = ({ handleLogout }) => {
       )}
 
       <ThemeToggle />
+
       {user ? (
         <>
           <Avatar>
